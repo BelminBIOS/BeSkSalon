@@ -79,6 +79,8 @@ Aplikacija će biti dostupna na: **http://localhost:5000**
 **Email:** admin@besk.ba  
 **Lozinka:** Admin123!
 
+> **Napomena:** Promijenite admin kredencijale u produkcijskom okruženju!
+
 ## 🗄️ Struktura baze podataka
 
 ### Glavne tabele:
@@ -116,3 +118,64 @@ BeSkSalon/
 ├── Migrations/           # EF migracije
 └── wwwroot/             # Statički resursi
 ```
+
+## 🚀 Deployment
+
+### Azure App Service
+
+```bash
+# Prijavite se na Azure
+az login
+
+# Deployujte aplikaciju
+az webapp up --name BeSkSalon --resource-group BeSkSalonRG --runtime "DOTNET|8.0"
+```
+
+### IIS Deploy
+
+1. Publikujte aplikaciju:
+```bash
+dotnet publish -c Release -o ./publish
+```
+
+2. Kopirajte `publish` folder na IIS server
+3. Kreirajte IIS sajt i podesite Application Pool
+
+## 🧪 Testiranje
+
+```bash
+# Pokrenite build
+dotnet build
+
+# (Opciono) Pokrenite testove ako postoje
+dotnet test
+```
+
+## 📝 Licenca
+
+Ovaj projekat je licenciran pod MIT licencom.
+
+## 👤 Autor
+
+**Belmin Škulj**
+- GitHub: [@BelminBIOS](https://github.com/BelminBIOS)
+- Institucija: Politehnički fakultet Univerziteta u Zenici
+- Program: Softversko inženjerstvo
+
+## 🤝 Doprinos
+
+Doprinosi, problemi i zahtjevi za nove funkcionalnosti su dobrodošli!
+
+1. Forkujte projekat
+2. Kreirajte feature branch (`git checkout -b feature/NovaFunkcionalnost`)
+3. Commit-ujte promjene (`git commit -m 'Dodaj novu funkcionalnost'`)
+4. Push-ujte na branch (`git push origin feature/NovaFunkcionalnost`)
+5. Otvorite Pull Request
+
+## 📞 Kontakt
+
+Za pitanja i podršku, kontaktirajte putem [GitHub Issues](https://github.com/BelminBIOS/BeSkSalon/issues).
+
+---
+
+⭐ **Ako vam se sviđa projekat, dajte mu zvjezdicu na GitHub-u!**
