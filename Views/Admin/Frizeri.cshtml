@@ -1,0 +1,64 @@
+﻿@model List<BeSkSalon.Models.Frizer>
+@{
+    ViewData["Title"] = "Frizeri";
+}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Frizeri</h2>
+        <div>
+            <a asp-action="KreirajFrizera" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Dodaj frizera
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Nazad
+            </a>
+        </div>
+    </div>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ime</th>
+                        <th>Tip</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var frizer in Model)
+                    {
+                        <tr>
+                            <td>@frizer.Id</td>
+                            <td>@frizer.Ime</td>
+                            <td>@frizer.Tip</td>
+                            <td>
+                                <a asp-action="UrediFrizera" asp-route-id="@frizer.Id" class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil"></i> Uredi
+                                </a>
+                                <form asp-action="ObrisiFrizera" asp-route-id="@frizer.Id" method="post" style="display:inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Da li ste sigurni da želite obrisati frizera?')">
+                                        <i class="bi bi-trash"></i> Obriši
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">Nema frizera u bazi podataka.</div>
+    }
+</div>

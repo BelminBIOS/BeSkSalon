@@ -1,0 +1,22 @@
+# .dockerignore
+
+# Directories
+**/bin/
+**/obj/
+**/out/
+**/publish/
+**/node_modules/
+**/.vs/
+**/.vscode/
+
+# Files
+**/*.user
+**/*.suo
+**/*.cache
+**/.git
+**/.gitignore
+**/.gitattributes
+**/appsettings.Development.json
+**/Dockerfile*
+**/docker-compose*
+**/*.md

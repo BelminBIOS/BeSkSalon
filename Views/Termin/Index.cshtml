@@ -1,0 +1,138 @@
+﻿@model BeSkSalon.Models.ViewModels.ZakaziTerminViewModel
+@{
+    ViewData["Title"] = "Zakaži termin";
+}
+<div class="container mt-4">
+    <h2>Zakaži termin</h2>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Zakazi" method="post" id="zakaziForm">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label class="form-label">1. Odaberite frizera</label>
+                            <select asp-for="FrizerId" class="form-select" id="frizerSelect">
+                                <option value="">-- Odaberite frizera --</option>
+                                @foreach (var frizer in Model.Frizeri)
+                                {
+                                    <option value="@frizer.Id">@frizer.Ime (@frizer.Tip frizer)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3" id="uslugaDiv" style="display:none;">
+                            <label class="form-label">2. Odaberite uslugu</label>
+                            <select asp-for="UslugaId" class="form-select" id="uslugaSelect">
+                                <option value="">-- Odaberite uslugu --</option>
+                            </select>
+                            <div id="uslugaInfo" class="mt-2"></div>
+                        </div>
+                        <div class="mb-3" id="datumDiv" style="display:none;">
+                            <label class="form-label">3. Odaberite datum</label>
+                            <input asp-for="Datum" type="date" class="form-control" id="datumInput" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <div class="mb-3" id="terminDiv" style="display:none;">
+                            <label class="form-label">4. Odaberite termin</label>
+                            <select asp-for="VrijemeOd" class="form-select" id="terminSelect">
+                                <option value="">-- Odaberite termin --</option>
+                            </select>
+                            <div id="terminInfo" class="mt-2 alert alert-info" style="display:none;"></div>
+                        </div>
+                        <div class="d-flex gap-2" id="submitDiv" style="display:none;">
+                            <button type="submit" class="btn btn-primary">Zakaži termin</button>
+                            <a asp-action="MojiTermini" class="btn btn-secondary">Moji termini</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Napomena</h5>
+                    <p class="card-text">
+                        Radno vrijeme salona je od 08:00 do 20:00.
+                    </p>
+                    <p class="card-text">
+                        Termini se prikazuju u intervalima od 30 minuta.
+                    </p>
+                    <p class="card-text">
+                        Ako nema slobodnih termina, pokušajte odabrati drugi datum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#frizerSelect').change(function() {
+                var frizerId = $(this).val();
+                if (frizerId) {
+                    $.get('@Url.Action("GetUsluge", "Termin")', { frizerId: frizerId }, function(data) {
+                        var select = $('#uslugaSelect');
+                        select.empty();
+                        select.append('<option value="">-- Odaberite uslugu --</option>');
+                        $.each(data, function(i, usluga) {
+                            select.append($('<option></option>').val(usluga.id).html(usluga.naziv + ' - ' + usluga.cijena.toFixed(2) + ' KM (' + usluga.trajanje + ' min)'));
+                        });
+                        $('#uslugaDiv').show();
+                    });
+                } else {
+                    $('#uslugaDiv, #datumDiv, #terminDiv, #submitDiv').hide();
+                    $('#uslugaSelect, #terminSelect').empty();
+                }
+            });
+            $('#uslugaSelect').change(function() {
+                if ($(this).val()) {
+                    var selectedText = $(this).find('option:selected').text();
+                    $('#uslugaInfo').html('<small class="text-muted">' + selectedText + '</small>');
+                    $('#datumDiv').show();
+                } else {
+                    $('#datumDiv, #terminDiv, #submitDiv').hide();
+                    $('#terminSelect').empty();
+                }
+            });
+            $('#datumInput').change(function() {
+                var frizerId = $('#frizerSelect').val();
+                var uslugaId = $('#uslugaSelect').val();
+                var datum = $(this).val();
+                if (frizerId && uslugaId && datum) {
+                    $.get('@Url.Action("GetSlobodniTermini", "Termin")', 
+                        { frizerId: frizerId, uslugaId: uslugaId, datum: datum }, 
+                        function(response) {
+                            var select = $('#terminSelect');
+                            select.empty();
+                            select.append('<option value="">-- Odaberite termin --</option>');
+                            if (response.success) {
+                                $.each(response.termini, function(i, termin) {
+                                    select.append($('<option></option>').val(termin.value).html(termin.text));
+                                });
+                                $('#terminDiv').show();
+                                $('#terminInfo').hide();
+                            } else {
+                                $('#terminInfo').html(response.message).show();
+                                $('#terminDiv').show();
+                                $('#submitDiv').hide();
+                            }
+                    });
+                }
+            });
+            $('#terminSelect').change(function() {
+                if ($(this).val()) {
+                    $('#submitDiv').show();
+                } else {
+                    $('#submitDiv').hide();
+                }
+            });
+        });
+    </script>
+}

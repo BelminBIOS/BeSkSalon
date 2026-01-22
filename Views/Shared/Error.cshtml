@@ -1,0 +1,53 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Greška";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-danger">
+                <div class="card-body p-5 text-center">
+                    <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 5rem;"></i>
+                    
+                    <h1 class="text-danger mt-4">Greška</h1>
+                    <h2 class="text-danger">Došlo je do greške prilikom obrade vašeg zahtjeva.</h2>
+                    
+                    @if (Model.ShowRequestId)
+                    {
+                        <div class="alert alert-secondary mt-4">
+                            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                        </div>
+                    }
+                    
+                    <div class="mt-4">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">
+                            <i class="bi bi-house-door"></i> Početna stranica
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            @if (Model.ShowRequestId)
+            {
+                <div class="card mt-4 bg-light">
+                    <div class="card-body">
+                        <h5>Režim razvoja (Development Mode)</h5>
+                        <p class="mb-2">
+                            Prebacivanje na <strong>Development</strong> okruženje će prikazati detaljnije informacije o grešci koja se desila.
+                        </p>
+                        <p class="mb-2">
+                            <strong>Development okruženje ne treba biti omogućeno za aplikacije u produkciji.</strong>
+                            Može rezultirati prikazivanjem osjetljivih informacija iz izuzetaka krajnjim korisnicima.
+                        </p>
+                        <p class="mb-0">
+                            Za lokalno debugovanje, omogućite <strong>Development</strong> okruženje postavljanjem 
+                            <strong>ASPNETCORE_ENVIRONMENT</strong> varijable okruženja na <strong>Development</strong>
+                            i restartovanjem aplikacije.
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

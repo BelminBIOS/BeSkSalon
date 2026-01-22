@@ -1,0 +1,67 @@
+﻿@model BeSkSalon.Models.ViewModels.MojiTerminiViewModel
+@{
+    ViewData["Title"] = "Moji termini";
+}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Moji termini</h2>
+        <a asp-action="Index" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Zakaži novi termin
+        </a>
+    </div>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zatvori"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zatvori"></button>
+        </div>
+    }
+    @if (Model.Termini.Any())
+    {
+        <div class="row">
+            @foreach (var termin in Model.Termini)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="card @(termin.Status == "Zakazan" ? "border-success" : termin.Status == "Otkazan" ? "border-danger" : "")">
+                        <div class="card-header @(termin.Status == "Zakazan" ? "bg-success text-white" : termin.Status == "Otkazan" ? "bg-danger text-white" : "bg-secondary text-white")">
+                            <strong>@termin.Status</strong>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@termin.UslugaNaziv</h5>
+                            <p class="card-text">
+                                <strong>Frizer:</strong> @termin.FrizerIme<br />
+                                <strong>Datum:</strong> @termin.Datum.ToString("dd.MM.yyyy (dddd)", new System.Globalization.CultureInfo("bs-BA"))<br />
+                                <strong>Vrijeme:</strong> @termin.VrijemeOd.ToString(@"hh\:mm") - @termin.VrijemeDo.ToString(@"hh\:mm")<br />
+                                <strong>Trajanje:</strong> @termin.UslugaTrajanje min<br />
+                                <strong>Cijena:</strong> @termin.UslugaCijena.ToString("F2") KM
+                            </p>
+                            @if (termin.Status == "Zakazan" && termin.Datum >= DateTime.Today)
+                            {
+                                <form asp-action="Otkazi" asp-route-id="@termin.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Da li ste sigurni da želite otkazati ovaj termin?')">
+                                        <i class="bi bi-x-circle"></i> Otkaži termin
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <h4>Nemate zakazanih termina</h4>
+            <p>Kliknite na dugme "Zakaži novi termin" kako biste zakazali svoj prvi termin.</p>
+        </div>
+    }
+</div>

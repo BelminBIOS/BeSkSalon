@@ -1,0 +1,49 @@
+﻿@model BeSkSalon.Models.ViewModels.UslugaViewModel
+@{
+    ViewData["Title"] = "Uredi uslugu";
+}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Uredi uslugu</h2>
+            <form asp-action="UrediUslugu" method="post" class="mt-4">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="Naziv" class="form-label"></label>
+                    <input asp-for="Naziv" class="form-control" />
+                    <span asp-validation-for="Naziv" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Trajanje" class="form-label"></label>
+                    <input asp-for="Trajanje" type="number" class="form-control" />
+                    <span asp-validation-for="Trajanje" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Cijena" class="form-label"></label>
+                    <input asp-for="Cijena" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="Cijena" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FrizerId" class="form-label"></label>
+                    <select asp-for="FrizerId" class="form-select">
+                        <option value="">-- Odaberite frizera --</option>
+                        @foreach (var frizer in Model.Frizeri)
+                        {
+                            <option value="@frizer.Id">@frizer.Ime (@frizer.Tip)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="FrizerId" class="text-danger"></span>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Sačuvaj izmjene</button>
+                    <a asp-action="Usluge" class="btn btn-secondary">Otkaži</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

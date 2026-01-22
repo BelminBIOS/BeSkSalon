@@ -1,0 +1,44 @@
+﻿@page
+@model EmailModel
+@{
+    ViewData["Title"] = "Upravljanje email adresom";
+    ViewData["ActivePage"] = ManageNavPages.Email;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+@if (!string.IsNullOrEmpty(Model.StatusMessage))
+{
+    <div class="alert alert-@(Model.StatusMessage.Contains("uspješno") ? "success" : "danger") alert-dismissible fade show" role="alert">
+        <i class="bi bi-@(Model.StatusMessage.Contains("uspješno") ? "check-circle-fill" : "exclamation-triangle-fill")"></i>
+        @Model.StatusMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zatvori"></button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="email-form" method="post">
+            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+            
+            <div class="form-floating mb-3">
+                <input id="email" class="form-control" value="@Model.Email" disabled />
+                <label for="email">Trenutni email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" placeholder="vas@email.ba" />
+                <label asp-for="Input.NewEmail"></label>
+                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+            </div>
+
+            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">
+                Promijeni email
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

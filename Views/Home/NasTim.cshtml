@@ -1,0 +1,214 @@
+﻿@model List<BeSkSalon.Models.Frizer>
+@{
+    ViewData["Title"] = "Naš tim";
+}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <p class="lead text-muted">Upoznajte naše talentovane frizere koji brinu o vašem izgledu</p>
+    </div>
+    <div class="row g-4">
+        @foreach (var frizer in Model)
+        {
+            <div class="col-md-6">
+                <div class="card team-card shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            @if (frizer.Tip == "Muški")
+                            {
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop" 
+                                     class="img-fluid team-image" alt="@frizer.Ime">
+                            }
+                            else
+                            {
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop" 
+                                     class="img-fluid team-image" alt="@frizer.Ime">
+                            }
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h3 class="card-title">@frizer.Ime</h3>
+                                <p class="text-primary mb-3">
+                                    <i class="bi bi-scissors"></i> @frizer.Tip Frizer
+                                </p>
+                                @if (frizer.Tip == "Muški")
+                                {
+                                    <h5 class="mb-3">O meni</h5>
+                                    <p class="text-muted">
+                                        Sa preko 10 godina iskustva u struci, specijalizovan sam za moderne muške frizure, 
+                                        fade tehnike i precizno stilizovanje brade. Moj pristup kombinuje klasične metode 
+                                        sa najnovijim trendovima u muškom frizerstvu.
+                                    </p>
+                                    <h6 class="mt-4 mb-2">Specijalizacija</h6>
+                                    <ul class="list-unstyled">
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Muške frizure</li>
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Fade i Undercut</li>
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Šišanje brade</li>
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Stilizovanje</li>
+                                    </ul>
+                                    <h6 class="mt-4 mb-2">Iskustvo</h6>
+                                    <p class="text-muted mb-1">
+                                        <strong>10+ godina</strong> u frizerskoj industriji<br />
+                                        Sertifikovan za napredne muške tehnike<br />
+                                        Učesnik međunarodnih radionica
+                                    </p>
+                                }
+                                else
+                                {
+                                    <h5 class="mb-3">O meni</h5>
+                                    <p class="text-muted">
+                                        Strast prema frizerstvu stekla sam prije 12 godina. Specijalizovana sam za 
+                                        ženske frizure, farbanje kose najnovijim tehnikama (balayage, ombre) i 
+                                        tretmane za oporavak kose. Vjerujem da svaka žena zaslužuje da se osjeća posebno.
+                                    </p>
+                                    <h6 class="mt-4 mb-2">Specijalizacija</h6>
+                                    <ul class="list-unstyled">
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Ženske frizure</li>
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Balayage & Ombre</li>
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Farbanje kose</li>
+                                        <li><i class="bi bi-check-circle-fill text-success"></i> Tretmani i njega</li>
+                                    </ul>
+                                    <h6 class="mt-4 mb-2">Iskustvo</h6>
+                                    <p class="text-muted mb-1">
+                                        <strong>12+ godina</strong> profesionalnog iskustva<br />
+                                        Sertifikovana za tehnike farbanja<br />
+                                        Kontinuirano usavršavanje u novim trendovima
+                                    </p>
+                                }
+                                <div class="mt-4">
+                                    @if (User.Identity?.IsAuthenticated == true)
+                                    {
+                                        <a asp-controller="Termin" asp-action="Index" class="btn btn-primary">
+                                            <i class="bi bi-calendar-check"></i> Zakaži kod @frizer.Ime.Split(' ')[0]
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-primary">
+                                            Registruj se za zakazivanje
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row mt-5 g-4">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4">Naše vrijednosti</h2>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center h-100 border-0 bg-light">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="bi bi-award-fill text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>Profesionalnost</h4>
+                    <p class="text-muted">
+                        Kontinuirano usavršavanje i praćenje najnovijih trendova u frizerstvu 
+                        kako bismo vam pružili najbolju moguću uslugu.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center h-100 border-0 bg-light">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="bi bi-heart-fill text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>Posvećenost</h4>
+                    <p class="text-muted">
+                        Svaki klijent je za nas jedinstven. Posvetimo vrijeme da razumijemo 
+                        vaše želje i potrebe kako bismo ostvarili savršen rezultat.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center h-100 border-0 bg-light">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <i class="bi bi-star-fill text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>Kvalitet</h4>
+                    <p class="text-muted">
+                        Koristimo isključivo visokokvalitetne proizvode i tehnike koje su 
+                        neophodne za postizanje vrhunskih rezultata.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-4">
+        <div class="col-md-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body py-5">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <h2 class="display-4 fw-bold">15+</h2>
+                            <p class="lead">Godina ukupnog iskustva</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h2 class="display-4 fw-bold">5000+</h2>
+                            <p class="lead">Zadovoljnih klijenata</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h2 class="display-4 fw-bold">15+</h2>
+                            <p class="lead">Različitih usluga</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h2 class="display-4 fw-bold">100%</h2>
+                            <p class="lead">Profesionalnost</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4 mb-5">
+        <div class="card bg-light">
+            <div class="card-body py-4">
+                <h3>Spremni za novu frizuru?</h3>
+                <p class="text-muted">Naš tim vas očekuje! Zakažite svoj termin već danas.</p>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Termin" asp-action="Index" class="btn btn-primary btn-lg">
+                        <i class="bi bi-calendar-check"></i> Zakaži termin
+                    </a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Registruj se
+                    </a>
+                }
+                <a asp-action="ONama" class="btn btn-outline-primary btn-lg ms-2">
+                    <i class="bi bi-info-circle"></i> Saznaj više
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .team-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .team-image {
+        height: 100%;
+        object-fit: cover;
+        min-height: 500px;
+    }
+    .card-body ul li {
+        padding: 5px 0;
+    }
+</style>

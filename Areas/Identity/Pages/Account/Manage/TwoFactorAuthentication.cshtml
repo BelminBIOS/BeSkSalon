@@ -1,0 +1,58 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Dvofaktorska autentifikacija (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h3>@ViewData["Title"]</h3>
+
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>Nemate više kodova za oporavak.</strong>
+            <p>Morate <a asp-page="./GenerateRecoveryCodes">generisati novi set kodova za oporavak</a> prije nego što se možete prijaviti sa kodom za oporavak.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>Imate 1 kod za oporavak preostao.</strong>
+            <p>Možete <a asp-page="./GenerateRecoveryCodes">generisati novi set kodova za oporavak</a>.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>Imate @Model.RecoveryCodesLeft kodova za oporavak preostalo.</strong>
+            <p>Trebali bi <a asp-page="./GenerateRecoveryCodes">generisati novi set kodova za oporavak</a>.</p>
+        </div>
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+        <form method="post" style="display: inline-block">
+            <button type="submit" class="btn btn-primary">Zaboravi ovaj pretraživač</button>
+        </form>
+    }
+    <a asp-page="./Disable2fa" class="btn btn-primary">Onemogući 2FA</a>
+    <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Resetuj kodove za oporavak</a>
+}
+
+<h4>Authenticator aplikacija</h4>
+@if (!Model.HasAuthenticator)
+{
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Dodaj authenticator aplikaciju</a>
+}
+else
+{
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Podesi authenticator aplikaciju</a>
+    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Resetuj authenticator aplikaciju</a>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

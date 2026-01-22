@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Početna";
+}
+<div class="text-center">
+    <div class="jumbotron bg-light p-5 rounded-3 mb-4">
+        <h1 class="display-3">
+            <i class="bi bi-scissors text-primary"></i> Dobrodošli u Frizerski Salon BeŠk
+        </h1>
+        <p class="lead mt-4">Vaša destinacija za profesionalnu njegu kose</p>
+        <hr class="my-4">
+        <p>Zakazujte termine online i uživajte u kvalitetnoj usluzi naših stručnih frizera</p>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a class="btn btn-primary btn-lg mt-3" asp-controller="Termin" asp-action="Index" role="button">
+                <i class="bi bi-calendar-check"></i> Zakaži termin
+            </a>
+            <a class="btn btn-outline-primary btn-lg mt-3" asp-controller="Termin" asp-action="MojiTermini" role="button">
+                <i class="bi bi-list-check"></i> Moji termini
+            </a>
+        }
+        else
+        {
+            <a class="btn btn-primary btn-lg mt-3" asp-area="Identity" asp-page="/Account/Register" role="button">
+                <i class="bi bi-person-plus"></i> Registruj se
+            </a>
+            <a class="btn btn-outline-primary btn-lg mt-3" asp-area="Identity" asp-page="/Account/Login" role="button">
+                <i class="bi bi-box-arrow-in-right"></i> Prijavi se
+            </a>
+        }
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-scissors display-4 text-primary"></i>
+                <h5 class="card-title mt-3">Profesionalni frizeri</h5>
+                <p class="card-text">Naš tim čine iskusni muški i ženski frizeri sa dugogodišnjim iskustvom.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-calendar-check display-4 text-success"></i>
+                <h5 class="card-title mt-3">Online zakazivanje</h5>
+                <p class="card-text">Zakažite termin jednostavno i brzo preko našeg online sistema.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-star-fill display-4 text-warning"></i>
+                <h5 class="card-title mt-3">Kvalitetne usluge</h5>
+                <p class="card-text">Nudimo širok spektar usluga prilagođenih vašim potrebama.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h4>Radno vrijeme</h4>
+                <p class="mb-0">Ponedjeljak - Subota: 08:00 - 20:00</p>
+                <p class="mb-0">Nedjelja: Zatvoreno</p>
+            </div>
+        </div>
+    </div>
+</div>

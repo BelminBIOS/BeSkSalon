@@ -1,0 +1,102 @@
+﻿@model List<BeSkSalon.Models.Termin>
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+<div class="container mt-4">
+    <h2>Admin Panel - Frizerski Salon BeŠk</h2>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Frizeri</h5>
+                    <p class="card-text">Upravljanje frizerima</p>
+                    <a asp-action="Frizeri" class="btn btn-light">Otvori</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Usluge</h5>
+                    <p class="card-text">Upravljanje uslugama</p>
+                    <a asp-action="Usluge" class="btn btn-light">Otvori</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Termini</h5>
+                    <p class="card-text">@Model.Count zakazanih termina</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-4">Svi termini</h3>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Datum</th>
+                        <th>Vrijeme</th>
+                        <th>Frizer</th>
+                        <th>Usluga</th>
+                        <th>Klijent</th>
+                        <th>Status</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var termin in Model)
+                    {
+                        <tr>
+                            <td>@termin.Id</td>
+                            <td>@termin.Datum.ToString("dd.MM.yyyy")</td>
+                            <td>@termin.VrijemeOd.ToString(@"hh\:mm") - @termin.VrijemeDo.ToString(@"hh\:mm")</td>
+                            <td>@termin.Frizer.Ime</td>
+                            <td>@termin.Usluga.Naziv</td>
+                            <td>@termin.User.Email</td>
+                            <td>
+                                @if (termin.Status == "Zakazan")
+                                {
+                                    <span class="badge bg-success">@termin.Status</span>
+                                }
+                                else if (termin.Status == "Otkazan")
+                                {
+                                    <span class="badge bg-danger">@termin.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@termin.Status</span>
+                                }
+                            </td>
+                            <td>
+                                @if (termin.Status == "Zakazan")
+                                {
+                                    <form asp-action="OtkaziTermin" asp-route-id="@termin.Id" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Da li ste sigurni da želite otkazati termin?')">Otkaži</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">Nema zakazanih termina.</div>
+    }
+</div>

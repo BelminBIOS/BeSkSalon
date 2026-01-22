@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "O nama";
+}
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <h3>Frizerski Salon BeŠk</h3>
+            <p class="lead">
+                Dobrodošli u naš frizerski salon gdje se tradicija spaja sa modernim trendovima u frizerstvu.
+            </p>
+            <p>
+                Salon BeŠk je osnovan sa ciljem pružanja vrhunske usluge u oblasti njege i oblikovanja kose. 
+                Naš tim čine profesionalni frizeri sa bogatim iskustvom, posvećeni tome da vam pruže najbolju moguću uslugu.
+            </p>
+            <h4 class="mt-4">Naš tim</h4>
+            <p>
+                U našem salonu rade dva stručna frizera:
+            </p>
+            <ul>
+                <li><strong>Muški frizer</strong> - Specijalizovan za muške frizure i šišanje brade</li>
+                <li><strong>Ženski frizer</strong> - Stručnjak za ženske frizure, farbanje i tretmane</li>
+            </ul>
+            <h4 class="mt-4">Naše usluge</h4>
+            <p>
+                Nudimo širok spektar usluga prilagođenih potrebama svakog klijenta:
+            </p>
+            <ul>
+                <li>Šišanje i stilizovanje</li>
+                <li>Farbanje i prelijevanje</li>
+                <li>Feniranje i oblikovanje</li>
+                <li>Tretmani za kosu</li>
+                <li>Šišanje brade (muški frizer)</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>Kontakt informacije</h5>
+                </div>
+                <div class="card-body">
+                    <p><i class="bi bi-geo-alt-fill"></i> <strong>Adresa:</strong><br />Ulica Povezice bb, Kakanj</p>
+                    <p><i class="bi bi-telephone-fill"></i> <strong>Telefon:</strong><br />+387 61 596 151</p>
+                    <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong><br />info@besk-salon.ba</p>
+                    <hr />
+                    <p><i class="bi bi-clock-fill"></i> <strong>Radno vrijeme:</strong></p>
+                    <p class="mb-0">Pon - Sub: 08:00 - 20:00</p>
+                    <p class="mb-0">Nedjelja: Zatvoreno</p>
+                </div>
+            </div>
+            <div class="card mt-3 bg-light">
+                <div class="card-body text-center">
+                    <h6>Online zakazivanje</h6>
+                    <p class="small">Zakažite svoj termin online i uštedite vrijeme!</p>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Termin" asp-action="Index" class="btn btn-primary btn-sm">Zakaži termin</a>
+                    }
+                    else
+                    {
+                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-sm">Registruj se</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Prijava";
+}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <h1 class="h3 mb-3 fw-bold">Prijava u BeŠkSalon</h1>
+                    <p class="text-muted">Unesite vaše podatke za pristup nalogu</p>
+                </div>
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle-fill"></i>
+                        @TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <section>
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="vas@email.ba" />
+                            <label asp-for="Input.Email"></label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Lozinka" />
+                            <label asp-for="Input.Password"></label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            <label class="form-check-label" asp-for="Input.RememberMe">
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-primary btn-lg py-3 fw-bold mb-3">
+                            Prijavi se
+                        </button>
+                        <div class="d-grid gap-2">
+                            <a id="forgot-password" asp-page="./ForgotPassword" class="text-center text-muted small">
+                                Zaboravili ste lozinku?
+                            </a>
+                        </div>
+                    </form>
+                </section>
+                <hr class="my-4">
+                <div class="text-center">
+                    <p class="text-muted">
+                        Nemate nalog? 
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-primary fw-semibold">
+                            Registrujte se ovdje
+                        </a>
+                    </p>
+                </div>
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) > 0)
+                    {
+                        <div class="text-center mt-4">
+                            <p class="text-muted mb-3">Ili se prijavite koristeći:</p>
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                <div class="d-grid gap-2">
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit" class="btn btn-outline-secondary" name="provider" value="@provider.Name" title="Prijava preko @provider.DisplayName naloga">
+                                            @provider.DisplayName
+                                        </button>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

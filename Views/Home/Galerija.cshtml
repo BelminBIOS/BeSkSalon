@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "Galerija radova";
+}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <p class="lead text-muted">Pogledajte našu kolekciju najnovijih radova i stilova</p>
+    </div>
+    <div class="text-center mb-4">
+        <div class="btn-group" role="group" aria-label="Filter kategorija">
+            <button type="button" class="btn btn-outline-primary active" data-filter="all">Sve</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="muske">Muške frizure</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="zenske">Ženske frizure</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="farbanje">Farbanje</button>
+            <button type="button" class="btn btn-outline-primary" data-filter="brada">Brada</button>
+        </div>
+    </div>
+    <div class="row g-3" id="galerija-grid">
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="muske">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=400&fit=crop" class="card-img-top" alt="Muška frizura 1">
+                <div class="card-body">
+                    <h6 class="card-title">Moderna muška frizura</h6>
+                    <p class="card-text small text-muted">Fade sa teksturom na vrhu</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="muske">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=400&h=400&fit=crop" class="card-img-top" alt="Muška frizura 2">
+                <div class="card-body">
+                    <h6 class="card-title">Klasični undercut</h6>
+                    <p class="card-text small text-muted">Elegantno i profesionalno</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="muske">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=400&fit=crop" class="card-img-top" alt="Muška frizura 3">
+                <div class="card-body">
+                    <h6 class="card-title">Buzz cut stilizovano</h6>
+                    <p class="card-text small text-muted">Jednostavno i praktično</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="zenske">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?w=400&h=400&fit=crop" class="card-img-top" alt="Ženska frizura 1">
+                <div class="card-body">
+                    <h6 class="card-title">Duge talase</h6>
+                    <p class="card-text small text-muted">Romantični stil sa volumenom</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="zenske">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop" class="card-img-top" alt="Ženska frizura 2">
+                <div class="card-body">
+                    <h6 class="card-title">Bob frizura</h6>
+                    <p class="card-text small text-muted">Moderan i elegantan bob</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="zenske">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1595475884562-073c30d45670?w=400&h=400&fit=crop" class="card-img-top" alt="Ženska frizura 3">
+                <div class="card-body">
+                    <h6 class="card-title">Feniranje i stilizovanje</h6>
+                    <p class="card-text small text-muted">Profesionalno feniranje</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="farbanje">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=400&fit=crop" class="card-img-top" alt="Farbanje 1">
+                <div class="card-body">
+                    <h6 class="card-title">Balayage tehnika</h6>
+                    <p class="card-text small text-muted">Prirodni prelaz boja</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="farbanje">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop" class="card-img-top" alt="Farbanje 2">
+                <div class="card-body">
+                    <h6 class="card-title">Ombre farbanje</h6>
+                    <p class="card-text small text-muted">Dramatičan prijelaz boja</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="farbanje">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=400&h=400&fit=crop" class="card-img-top" alt="Farbanje 3">
+                <div class="card-body">
+                    <h6 class="card-title">Potpuno farbanje</h6>
+                    <p class="card-text small text-muted">Ravnomjerna boja</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="brada">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=400&h=400&fit=crop" class="card-img-top" alt="Brada 1">
+                <div class="card-body">
+                    <h6 class="card-title">Stilizovanje brade</h6>
+                    <p class="card-text small text-muted">Precizno oblikovanje</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="brada">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=400&fit=crop" class="card-img-top" alt="Brada 2">
+                <div class="card-body">
+                    <h6 class="card-title">Kratka brada</h6>
+                    <p class="card-text small text-muted">Održavanje i njega</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 gallery-item" data-category="brada">
+            <div class="card gallery-card">
+                <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=400&fit=crop" class="card-img-top" alt="Brada 3">
+                <div class="card-body">
+                    <h6 class="card-title">Duga brada</h6>
+                    <p class="card-text small text-muted">Profesionalno održavanje</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-5 mb-4">
+        <div class="card bg-light">
+            <div class="card-body py-4">
+                <h4>Želite ovakvu frizuru?</h4>
+                <p class="text-muted">Zakažite svoj termin online i ostvarite željeni izgled!</p>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="Termin" asp-action="Index" class="btn btn-primary btn-lg">
+                        <i class="bi bi-calendar-check"></i> Zakaži termin
+                    </a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">
+                        <i class="bi bi-person-plus"></i> Registruj se
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const filter = this.getAttribute('data-filter');
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                            
+                            item.style.opacity = '0';
+                            setTimeout(() => {
+                                item.style.transition = 'opacity 0.3s';
+                                item.style.opacity = '1';
+                            }, 10);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}
+<style>
+    .gallery-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        cursor: pointer;
+    }
+    .gallery-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .gallery-card img {
+        height: 300px;
+        object-fit: cover;
+    }
+    .gallery-item {
+        transition: opacity 0.3s ease;
+    }
+    .btn-group .btn {
+        margin: 2px;
+    }
+</style>
